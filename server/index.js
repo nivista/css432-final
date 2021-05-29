@@ -1,8 +1,19 @@
 const WebSocket = require('ws');
 
+const http = require('http');
+const serveStatic = require('serve-static')
+
+var serve = serveStatic('../client/build', { 'index': ['index.html'] })
+
+var server = http.createServer(function (req, res) {
+  serve(req, res, _ => {})
+});
+
 const wss = new WebSocket.Server({
-  port: 8080,
+  server: server,
 })
+
+server.listen(8080)
 
 let games = []
 let players = []
@@ -68,8 +79,8 @@ wss.on('connection', ws => {
             if (name == '')
               throw 'You haven\'t registered yet'
 
-            if (players.some(player => player.name == name && player.game == msg.data.name )) // hack to solve 'double join' bug on frontend
-              break; 
+            if (players.some(player => player.name == name && player.game == msg.data.name)) // hack to solve 'double join' bug on frontend
+              break;
 
             if (players.some(player => { let res = player.name == name && player.game != null; if (res) console.log(player); return res; }))
               throw 'You\'re already in a game'
