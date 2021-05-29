@@ -1,0 +1,13 @@
+.square {
+  border: 1px solid black;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 10px);
+  grid-template-rows: repeat(10, 10px);
+}
+
+.colored {
+  background-color: black;
+}
