@@ -1,29 +1,22 @@
 const WebSocket = require('ws');
+const dotenv = require('dotenv')
 
-const http = require('http');
-const serveStatic = require('serve-static')
-
-var serve = serveStatic('../client/build', { 'index': ['index.html'] })
-
-var server = http.createServer(function (req, res) {
-  serve(req, res, _ => {})
-});
+let res = dotenv.config()
+if (res.error) {
+  throw res.error
+}
 
 const wss = new WebSocket.Server({
-  server: server,
+  port: res.parsed.PORT ? parseInt(res.parsed.PORT):  8080,
 })
-
-server.listen(80)
 
 let games = []
 let players = []
 
 wss.on('error', console.error)
 wss.on('connection', ws => {
-  console.log('hello')
   let name = ''
   ws.on('message', msg => {
-    console.log(msg)
     try {
       msg = JSON.parse(msg)
       switch (msg.type) {
@@ -133,7 +126,6 @@ wss.on('connection', ws => {
           throw 'Unknown type'
       }
     } catch (e) {
-      console.log(e)
       players = players.filter(player => player.name != name)
       ws.close(1000, e)
       return

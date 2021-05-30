@@ -6,14 +6,13 @@ import reducer from './reducer'
 import RegistrationForm from './RegistrationForm'
 import GamesList from './GamesList'
 import Game from './Game'
+
 const initialState: State = { type: "connecting" };
 
 function App() {
   let [state, dispatch] = useReducer(reducer, initialState)
   useEffect(function () {
-    api.registerDispatch(dispatch)
-    let socket = new WebSocket("ws://localhost:80")
-    api.registerWS(socket)
+    api.init(dispatch)
   }, [])
   return (
     <div className="App">

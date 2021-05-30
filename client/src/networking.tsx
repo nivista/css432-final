@@ -1,9 +1,19 @@
 import React from 'react'
 import { State, Action } from './types'
+import config from './config'
 
 let ws: WebSocket
 let dispatch: React.Dispatch<Action>
 
+export function init(_dispatch: React.Dispatch<Action>) {
+  dispatch = _dispatch
+
+  ws = new WebSocket("ws://" + config.url)
+  ws.onopen = (_) => { dispatch({ type: "connect" }); return {}; }
+  ws.onmessage = processMessage
+  ws.onclose = console.error
+  ws.onerror = console.error
+}
 export function registerDispatch(_dispatch: React.Dispatch<Action>) { dispatch = _dispatch }
 
 export function registerWS(_ws: WebSocket) {

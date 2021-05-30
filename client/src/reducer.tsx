@@ -31,6 +31,8 @@ export default function reducer(state: State, action: Action): State {
         case "unregister":
           api.unregister()
           return { type: "done" }
+        case "loadGamesList":
+          return { type: "gamesList", games: action.games }
         default:
           throw "Unexpected action"
       }
