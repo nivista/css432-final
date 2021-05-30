@@ -12,7 +12,7 @@ function App() {
   let [state, dispatch] = useReducer(reducer, initialState)
   useEffect(function () {
     api.registerDispatch(dispatch)
-    let socket = new WebSocket("ws://localhost:8080")
+    let socket = new WebSocket("ws://localhost:80")
     api.registerWS(socket)
   }, [])
   return (

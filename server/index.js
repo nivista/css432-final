@@ -13,7 +13,7 @@ const wss = new WebSocket.Server({
   server: server,
 })
 
-server.listen(8080)
+server.listen(80)
 
 let games = []
 let players = []
