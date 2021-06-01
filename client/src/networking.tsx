@@ -1,5 +1,5 @@
 import React from 'react'
-import { State, Action } from './types'
+import { Action } from './types'
 import config from './config'
 
 let ws: WebSocket
