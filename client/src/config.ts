@@ -1,5 +1,5 @@
 const config = {
-  url: process.env.REACT_APP_URL ? process.env.REACT_APP_URL : "localhost:8080",
+  url: process.env.REACT_APP_URL,
 }
 
 export default config
