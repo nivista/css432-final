@@ -1,13 +1,7 @@
 const WebSocket = require('ws');
-const dotenv = require('dotenv')
-
-let res = dotenv.config()
-if (res.error) {
-  throw res.error
-}
 
 const wss = new WebSocket.Server({
-  port: res.parsed.PORT ? parseInt(res.parsed.PORT):  8080,
+  port: 8080,
 })
 
 let games = []
