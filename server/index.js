@@ -69,7 +69,7 @@ wss.on('connection', ws => {
             if (players.some(player => player.name == name && player.game == msg.data.name)) // hack to solve 'double join' bug on frontend
               break;
 
-            if (players.some(player => { let res = player.name == name && player.game != null; if (res) console.log(player); return res; }))
+            if (players.some(player => player.name == name && player.game != null))
               throw 'You\'re already in a game'
 
             if (!games.some(game => game.name == msg.data.name))
@@ -77,9 +77,7 @@ wss.on('connection', ws => {
 
             players.find(player => player.name == name).game = msg.data.name
             let game = games.find(game => game.name == msg.data.name)
-            console.log("79 " + game)
             let board = game.board
-            console.log("81 " + board)
 
             ws.send(JSON.stringify({ type: 'loadGame', data: { board } }))
           }

@@ -49,7 +49,6 @@ export function createGame(name: string) {
 }
 
 export function joinGame(name: string) {
-  console.log("here")
   ws.send(JSON.stringify({ type: "joinGame", data: { name }, bob: "weave" }))
 }
 
